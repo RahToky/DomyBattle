@@ -35,23 +35,21 @@ public class GameManager {
         initScores();
         while (getWinner() == null) {
             distribute();
-
             currentPlayer = mainPlayer;
             //TODO change to observer/observable
             notifyConsumer(displayableGameConsumer);
 
             int iDontHave = 0;
             boolean emptyDominoes = false;
-            System.out.println("---> STEP:" + step + ", main=> " + currentPlayer.getName());
             while (iDontHave < 3 && !emptyDominoes) {
                 Dominoes playerPlayableDominoes = getPlayableDominoes(currentPlayer);
                 if (playerPlayableDominoes.isEmpty()) {
-                    System.out.println("---> tsy manana i " + currentPlayer.getName());
                     dominoFrameModel.setLastDomino(null);
                     iDontHave++;
                 } else {
                     PlayerResponse playerResponse = currentPlayer.play(playerDominoesMap.get(currentPlayer), playerPlayableDominoes, placedDominoes);
                     if (playerResponse == null || !playerResponse.isValid()) {
+                        dominoFrameModel.setLastDomino(null);
                         iDontHave++;
                     } else {
                         iDontHave = 0;
@@ -77,8 +75,8 @@ public class GameManager {
                             dominoFrameModel.setLastDomino(playerResponse.getDomino());
                             emptyDominoes = playerDominoesMap.get(currentPlayer).isEmpty();
                         } catch (Exception e) {
-                            System.out.println("--- ERROR: can't place " + currentPlayer.getName() + "'s domino " + playerResponse.getDomino() + ", head:" + placedDominoes.getHead() + ", tail:" + placedDominoes.getTail() + ". Cause:" + e.getMessage());
                             e.printStackTrace();
+                            dominoFrameModel.setLastDomino(null);
                             iDontHave++;
                         }
                     }
@@ -86,7 +84,7 @@ public class GameManager {
 
 
                 notifyConsumer(displayableGameConsumer);
-                //ConsolePrinter.display(placedDominoes);
+                //ConsolePrinter.display(placedDominoes); DISPLAY ON CONSOLE
                 currentPlayer = whoIsNextPlayer(currentPlayer);
                 Thread.sleep(game.getMilliSecondStepPause());
             }
@@ -103,9 +101,6 @@ public class GameManager {
         }
         dominoFrameModel.setWinner(getWinner());
         notifyConsumer(displayableGameConsumer);
-        System.out.println("\n--------- E N D ----------");
-        System.out.println("***** CONGRATULATION FOR WINNER " + getWinner().getName() + "  ****");
-        scores.forEach((player, finalScore) -> System.out.println("-> " + player.getName() + "=" + finalScore + ".Points"));
     }
 
     private void notifyConsumer(Consumer<DominoFrameModel> displayableGameConsumer) {
