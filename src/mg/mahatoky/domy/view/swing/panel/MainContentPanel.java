@@ -58,17 +58,19 @@ public class MainContentPanel extends JPanel {
     }
 
     public void refresh(DominoFrameModel dominoFrameModel) {
-        player1Panel.displayDominoes(dominoFrameModel.getPlayer1Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer3Name())?Color.lightGray:Color.WHITE);
-        player2Panel.displayDominoes(dominoFrameModel.getPlayer2Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer1Name())?Color.lightGray:Color.WHITE);
-        player3Panel.displayDominoes(dominoFrameModel.getPlayer3Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer2Name())?Color.lightGray:Color.WHITE);
-        if(dominoFrameModel.getPlacedDominoes().isEmpty()){
+        player1Panel.displayDominoes(dominoFrameModel.getPlayer1Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer3Name()) ? Color.lightGray : Color.WHITE);
+        player2Panel.displayDominoes(dominoFrameModel.getPlayer2Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer1Name()) ? Color.lightGray : Color.WHITE);
+        player3Panel.displayDominoes(dominoFrameModel.getPlayer3Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer2Name()) ? Color.lightGray : Color.WHITE);
+        if (dominoFrameModel.getPlacedDominoes().isEmpty()) {
             placedDominoPanel.clear();
-        }else {
-            if(dominoFrameModel.getLastPlace().equals(PlayerResponse.PLACE.HEAD)){
-                System.out.println("-------------------------------->"+dominoFrameModel.getLastDomino());
+        } else {
+            if (dominoFrameModel.getLastPlace().equals(PlayerResponse.PLACE.HEAD)) {
+                System.out.println("-------------------------------->" + dominoFrameModel.getLastDomino());
             }
             placedDominoPanel.displayDominoes(dominoFrameModel.getLastDomino(), dominoFrameModel.getLastPlace());
         }
+        this.revalidate();
+        this.repaint();
     }
 
 }

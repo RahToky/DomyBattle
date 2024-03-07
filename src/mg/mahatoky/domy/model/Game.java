@@ -12,6 +12,7 @@ public class Game {
     private Player player3;
     private Dominoes remainingDominoes;
     private int maxScore;
+    private int milliSecondStepPause = 700;
 
     public Game() {
     }
@@ -52,6 +53,14 @@ public class Game {
         return maxScore;
     }
 
+    public int getMilliSecondStepPause() {
+        return milliSecondStepPause;
+    }
+
+    public void setMilliSecondStepPause(int milliSecondStepPause) {
+        this.milliSecondStepPause = milliSecondStepPause;
+    }
+
     public void setMaxScore(int maxScore) {
         this.maxScore = maxScore;
     }
@@ -63,6 +72,7 @@ public class Game {
         private Player player3;
         private Dominoes remainingDominoes;
         private int maxScore;
+        private int milliSecondStepPause = 700;
 
         public GameBuilder setRemainingDominoes(Dominoes remainingDominoes) {
             this.remainingDominoes = remainingDominoes;
@@ -89,6 +99,11 @@ public class Game {
             return this;
         }
 
+        public GameBuilder setMilliSecondStepPause(int milliSecondStepPause) {
+            this.milliSecondStepPause = milliSecondStepPause;
+            return this;
+        }
+
         public Game build(){
             Game game = new Game();
             game.setPlayer1(this.player1);
@@ -96,6 +111,7 @@ public class Game {
             game.setPlayer3(this.player3);
             game.setMaxScore(this.maxScore);
             game.setRemainingDominoes(this.remainingDominoes);
+            game.setMilliSecondStepPause(this.milliSecondStepPause);
             return game;
         }
     }

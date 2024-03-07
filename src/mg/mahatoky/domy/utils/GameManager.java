@@ -88,7 +88,7 @@ public class GameManager {
                 notifyConsumer(displayableGameConsumer);
                 //ConsolePrinter.display(placedDominoes);
                 currentPlayer = whoIsNextPlayer(currentPlayer);
-                Thread.sleep(600);
+                Thread.sleep(game.getMilliSecondStepPause());
             }
             Player stepWinner = calculateStepWinner();
             if (stepWinner != null) {
@@ -99,8 +99,9 @@ public class GameManager {
             notifyConsumer(displayableGameConsumer);
             changeMainPlayer();
             step++;
-            Thread.sleep(1500);
+            Thread.sleep(game.getMilliSecondStepPause());
         }
+        dominoFrameModel.setWinner(getWinner());
         notifyConsumer(displayableGameConsumer);
         System.out.println("\n--------- E N D ----------");
         System.out.println("***** CONGRATULATION FOR WINNER " + getWinner().getName() + "  ****");

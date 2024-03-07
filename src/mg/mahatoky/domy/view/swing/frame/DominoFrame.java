@@ -5,9 +5,8 @@ import mg.mahatoky.domy.bot.MtkBot;
 import mg.mahatoky.domy.model.Game;
 import mg.mahatoky.domy.utils.GameManager;
 import mg.mahatoky.domy.utils.Shuffler;
-import mg.mahatoky.domy.view.swing.dialog.StartDialog;
-import mg.mahatoky.domy.view.swing.panel.MainContentPanel;
 import mg.mahatoky.domy.view.swing.model.DominoFrameModel;
+import mg.mahatoky.domy.view.swing.panel.MainContentPanel;
 
 import javax.swing.*;
 
@@ -17,7 +16,6 @@ import javax.swing.*;
 public class DominoFrame extends JFrame {
 
     private MainContentPanel mainContentPanel;
-    private StartDialog startDialog;
     private Game game;
     private GameManager gameManager;
 
@@ -30,19 +28,19 @@ public class DominoFrame extends JFrame {
             setLocation(300, 100);
             mainContentPanel = new MainContentPanel(size, size, playerNames);
             setContentPane(mainContentPanel);
-            setContents();
             this.setVisible(true);
             this.pack();
             buildGame(playerNames);
-            displayStartDialog();
+            startGame();
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void buildGame(String... playerNames) {
         game = new Game.GameBuilder()
-                .setMaxScore(60)
+                .setMaxScore(30)
                 .setPlayer1(new DefaultBot(playerNames[0]))
                 .setPlayer2(new MtkBot(playerNames[1]))
                 .setPlayer3(new DefaultBot(playerNames[2]))
@@ -55,25 +53,19 @@ public class DominoFrame extends JFrame {
             gameManager = new GameManager(game);
             gameManager.start(this::refresh);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void setContents() {
-        startDialog = new StartDialog(this);
-    }
-
-    private void displayStartDialog() {
-        startDialog.setYesListener(e -> {
-            startDialog.dispose();
-            startGame();
-        });
-        startDialog.setVisible(true);
-    }
-
     public void refresh(DominoFrameModel dominoFrameModel) {
-        System.out.println("refresh");
-        this.mainContentPanel.refresh(dominoFrameModel);
+        if (dominoFrameModel.getWinner() == null) {
+            this.mainContentPanel.refresh(dominoFrameModel);
+            revalidate();
+            repaint();
+        } else {
+            JOptionPane.showMessageDialog(this, dominoFrameModel.getWinner().getName() + " IS THE WINNER", "WINNER", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 }

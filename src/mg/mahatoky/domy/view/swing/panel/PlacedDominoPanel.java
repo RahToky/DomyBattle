@@ -34,6 +34,7 @@ public class PlacedDominoPanel extends JPanel {
         DominoPanel dominoPanel = new DominoPanel(domino, position.isVertical() ? placedDominoPanelModel.getDominoShortSide() : placedDominoPanelModel.getDominoLongSide(), position.isVertical() ? placedDominoPanelModel.getDominoLongSide() : placedDominoPanelModel.getDominoShortSide());
         dominoPanel.setBounds(position.getPoint().x, position.getPoint().y, dominoPanel.getWidth(), dominoPanel.getHeight());
         add(dominoPanel);
+        revalidate();
         repaint();
     }
 
