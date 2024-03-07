@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Represent the domino
  * @author mtk_ext
  */
 public class DominoPanel extends JPanel {
@@ -42,6 +43,9 @@ public class DominoPanel extends JPanel {
         add(twoHalfDominoPanels[1]);
     }
 
+    /**
+     * Represent half domino
+     */
     public static class HalfDominoPanel extends JPanel {
 
         private int eyes;

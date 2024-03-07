@@ -1,8 +1,7 @@
 package mg.mahatoky.domy.model;
 
-import java.util.Set;
-
 /**
+ * Containing all game parameters
  * @author mtk_ext
  */
 public class Game {

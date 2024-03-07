@@ -3,6 +3,7 @@ package mg.mahatoky.domy.view.swing.model;
 import mg.mahatoky.domy.model.*;
 
 /**
+ * Class used to contain properties for display
  * @author mtk_ext
  */
 public class DominoFrameModel {

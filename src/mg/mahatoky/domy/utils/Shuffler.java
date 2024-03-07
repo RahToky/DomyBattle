@@ -6,6 +6,7 @@ import mg.mahatoky.domy.model.Dominoes;
 import java.util.*;
 
 /**
+ * Utility class to generate or manipulate dominoes
  * @author mtk_ext
  */
 public abstract class Shuffler {

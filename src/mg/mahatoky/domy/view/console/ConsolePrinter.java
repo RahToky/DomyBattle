@@ -4,6 +4,7 @@ import mg.mahatoky.domy.model.Domino;
 import mg.mahatoky.domy.model.PlacedDominoes;
 
 /**
+ * Utility class to display more aesthetic thing in console
  * @author mahatoky
  */
 public abstract class ConsolePrinter {

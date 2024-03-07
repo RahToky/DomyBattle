@@ -1,12 +1,13 @@
 package mg.mahatoky.domy.view.swing.panel;
 
-import mg.mahatoky.domy.model.PlayerResponse;
 import mg.mahatoky.domy.view.swing.model.DominoFrameModel;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Contain all others panel
+ * The {@link mg.mahatoky.domy.view.swing.frame.DominoFrame}'s content pane
  * @author mtk_ext
  */
 public class MainContentPanel extends JPanel {

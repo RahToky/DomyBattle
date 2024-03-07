@@ -11,6 +11,7 @@ import mg.mahatoky.domy.view.swing.panel.MainContentPanel;
 import javax.swing.*;
 
 /**
+ * Main game #JFrame
  * @author mtk_ext
  */
 public class DominoFrame extends JFrame {
@@ -19,6 +20,13 @@ public class DominoFrame extends JFrame {
     private Game game;
     private GameManager gameManager;
 
+    /**
+     * Build Game the start it
+     * @param size frame size, all side use same width
+     * @param playerNames
+     * @throws Exception if given playerNames length is less than 3
+     */
+    //TODO: don't give name here
     public DominoFrame(int size, String... playerNames) throws Exception {
         try {
             if (playerNames == null || playerNames.length < 3)

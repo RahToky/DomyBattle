@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Set of domino with some useful methods
  * @author mahatoky
  */
 public class Dominoes extends HashSet<Domino> {

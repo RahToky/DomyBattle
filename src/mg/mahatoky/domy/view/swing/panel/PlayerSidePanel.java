@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * Represent the player's panel
+ * Containing dominoes
+ * Containing name
+ * Containing point
+ *
  * @author mtk_ext
  */
 public class PlayerSidePanel extends JPanel {
@@ -35,7 +40,7 @@ public class PlayerSidePanel extends JPanel {
         addDominoesPanel();
     }
 
-    private void addProfilePanel(){
+    private void addProfilePanel() {
         int minWidth = Math.min(getWidth(), getHeight());
         profilePanel = new JPanel();
         profilePanel.setBounds(0, 0, minWidth, minWidth);
@@ -44,7 +49,7 @@ public class PlayerSidePanel extends JPanel {
 
         scorePanel = new JPanel();
         scorePanel.setBackground(Color.ORANGE);
-        scorePanel.setBounds(5,profilePanel.getWidth()/2,profilePanel.getWidth()-10,profilePanel.getWidth()/3);
+        scorePanel.setBounds(5, profilePanel.getWidth() / 2, profilePanel.getWidth() - 10, profilePanel.getWidth() / 3);
         scorePanel.add(scoreLabel);
         profilePanel.add(scorePanel);
     }
@@ -52,12 +57,12 @@ public class PlayerSidePanel extends JPanel {
     private void displayName() {
         JPanel panelName = new JPanel();
         panelName.add(new JLabel(playerName));
-        panelName.setBounds(5,5,profilePanel.getWidth()-10,profilePanel.getWidth()/2);
+        panelName.setBounds(5, 5, profilePanel.getWidth() - 10, profilePanel.getWidth() / 2);
         profilePanel.add(panelName);
     }
 
     public void displayScore(int score) {
-        scoreLabel.setText("Pt: "+score);
+        scoreLabel.setText("Pt: " + score);
         profilePanel.repaint();
     }
 
@@ -97,7 +102,7 @@ public class PlayerSidePanel extends JPanel {
                 }
             }
             this.repaint();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

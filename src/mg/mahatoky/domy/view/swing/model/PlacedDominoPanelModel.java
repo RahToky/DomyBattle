@@ -16,7 +16,19 @@ public class PlacedDominoPanelModel {
     private Domino tailDomino;
     private Domino headDomino;
 
+    /**
+     * Contains 2 {@link Point} containing last head position, necessary to place next domino
+     * if domino #Direction == TOP, headCornersPoints[0] is TOP-LEFT and headCornersPoints[1] is TOP-RIGHT
+     * if domino #Direction == RIGHT, headCornersPoints[0] is TOP-RIGHT and headCornersPoints[1] BOTTOM-RIGHT
+     * if domino #Direction == LEFT, headCornersPoints[0] is TOP-LEFT and headCornersPoints[1] BOTTOM-LEFT
+     */
     private Point[] headCornersPoints;
+    /**
+     * Contains 2 {@link Point} containing last tail position, necessary to place next domino
+     * if domino #Direction == BOT, tailCornersPoints[0] is BOT-LEFT and tailCornersPoints[1] is BOT-RIGHT
+     * if domino #Direction == RIGHT, tailCornersPoints[0] is TOP-RIGHT and tailCornersPoints[1] BOTTOM-RIGHT
+     * if domino #Direction == LEFT, tailCornersPoints[0] is TOP-LEFT and tailCornersPoints[1] BOTTOM-LEFT
+     */
     private Point[] tailCornersPoints;
 
     private int dominoShortSide;
@@ -117,11 +129,23 @@ public class PlacedDominoPanelModel {
         this.tailDirection = tailDirection;
     }
 
+    /**
+     * Return the #Point where the domino must be placed, and his orientation
+     * Handle next domino orientation by counting {@link #headStepCount} and {@link #tailStepCount} according to {@link Direction}
+     * Update new {@link #head} and {@link #tail} value with  {@link #setHead(Domino)} method
+     * Update {@link #headStepCount} and {@link #tailStepCount}
+     * Save last head and tail {@link Direction}
+     * Switch domino according to his place and update {@link #head} and {@link #tail} with {@link #setHead(Domino)} method
+     *
+     * @param domino
+     * @param place
+     * @return position and orientation, but return null if given domino is null or already in line
+     */
     public DominoPosition addDomino(Domino domino, PlayerResponse.PLACE place) {
         if (domino == null)
             return null;
-        for(Domino d:dominoList){
-            if(d.equals(domino)){
+        for (Domino d : dominoList) {
+            if (d.equals(domino)) {
                 return null;
             }
         }
@@ -314,6 +338,13 @@ public class PlacedDominoPanelModel {
         }
     }
 
+    /**
+     * Calculate where the next domino must be placed on screen according to {@link #headCornersPoints} and {@link #tailCornersPoints}
+     * @param direction
+     * @param isHead
+     * @param isDouble
+     * @return
+     */
     private Point getNextDominoStartPoint(Direction direction, boolean isHead, boolean isDouble) {
         Point point = new Point();
         switch (direction) {
@@ -449,6 +480,9 @@ public class PlacedDominoPanelModel {
         return point;
     }
 
+    /**
+     * Reinitialize all value
+     */
     public void clear() {
         this.head = null;
         this.tail = null;

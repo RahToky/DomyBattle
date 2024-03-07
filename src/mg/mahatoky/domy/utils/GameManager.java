@@ -7,19 +7,17 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
+ * Manage the main game logics
  * @author mtk_ext
  */
 public class GameManager {
 
     private Game game;
     private PlacedDominoes placedDominoes;
-    private GameHistory gameHistory;
     private Player mainPlayer;
     private Player currentPlayer;
     private Map<Player, Dominoes> playerDominoesMap;
-    private Set<Domino> remainingDominoes;
     private Map<Player, Integer> scores;
-    private int step;
 
     private DominoFrameModel dominoFrameModel = new DominoFrameModel();
 
@@ -28,6 +26,16 @@ public class GameManager {
         setGame(game);
     }
 
+    /**
+     * while {@link #getWinner()} is null
+     * Call  {@link Player#play(Dominoes, Dominoes, PlacedDominoes)} while players have dominoes and can play
+     * Notify displayableGameConsumer every step finished
+     * Notify displayableGameConsumer when have game winner and stop game
+     * During game, if Player don't give the right {@link PlayerResponse.PLACE}, switch to good place or just skip player turn if it can't be switched
+     * Set some useful properties to {@link #dominoFrameModel} during step to display on {@link mg.mahatoky.domy.view.swing.frame.DominoFrame}
+     * @param displayableGameConsumer
+     * @throws Exception
+     */
     public void start(Consumer<DominoFrameModel> displayableGameConsumer) throws Exception {
         this.mainPlayer = game.getPlayer1();
         this.currentPlayer = mainPlayer;
@@ -89,7 +97,6 @@ public class GameManager {
             dominoFrameModel.setStepWinner(calculateStepScores());
             notifyConsumer(displayableGameConsumer);
             changeMainPlayer();
-            step++;
             Thread.sleep(game.getMilliSecondStepPause());
         }
         dominoFrameModel.setWinner(getWinner());
@@ -177,14 +184,12 @@ public class GameManager {
         playerDominoesMap.put(game.getPlayer1(), splitDominoes.get(1));
         playerDominoesMap.put(game.getPlayer2(), splitDominoes.get(2));
         playerDominoesMap.put(game.getPlayer3(), splitDominoes.get(3));
-        this.remainingDominoes = splitDominoes.get(4);
         this.placedDominoes.clear();
     }
 
     /**
      * Calculate score and give the winner
-     *
-     * @return winner
+     * @return winner {@link Player}
      */
     public Player getWinner() {
         if (scores.get(game.getPlayer1()) >= game.getMaxScore())
@@ -218,7 +223,6 @@ public class GameManager {
     public void setGame(Game game) {
         this.game = game;
         this.placedDominoes = new PlacedDominoes();
-        this.remainingDominoes = new HashSet<>();
         this.playerDominoesMap = new HashMap<>();
         this.scores = new HashMap<>();
     }

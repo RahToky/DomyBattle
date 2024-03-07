@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Represent the middle panel that containing all placed dominoes
  * @author mtk_ext
  */
 public class PlacedDominoPanel extends JPanel {
