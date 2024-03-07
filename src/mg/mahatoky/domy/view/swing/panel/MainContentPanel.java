@@ -41,7 +41,7 @@ public class MainContentPanel extends JPanel {
         player1Panel = new PlayerSidePanel(playerNames[0], playerPanelWidth, playerPanelHeight);
         player2Panel = new PlayerSidePanel(playerNames[1], playerPanelHeight, playerPanelWidth);
         player3Panel = new PlayerSidePanel(playerNames[2], playerPanelWidth, playerPanelHeight);
-        placedDominoPanel = new PlacedDominoPanel(getWidth() - (playerPanelWidth * 2), getHeight() - playerPanelWidth);
+        placedDominoPanel = new PlacedDominoPanel(getWidth() - (playerPanelWidth * 2)+20, getHeight() - playerPanelWidth+20);
 
         player2Panel.setBounds(0, (int) getPreferredSize().getHeight() - playerPanelWidth, player2Panel.getWidth(), player2Panel.getHeight());
         add(player2Panel);
@@ -52,8 +52,12 @@ public class MainContentPanel extends JPanel {
         player3Panel.setBounds((int) getPreferredSize().getWidth() - playerPanelWidth, 0, player3Panel.getWidth(), player3Panel.getHeight());
         add(player3Panel);
 
-        placedDominoPanel.setBounds(playerPanelWidth, 0, placedDominoPanel.getWidth(), placedDominoPanel.getHeight());
-        add(placedDominoPanel);
+        JScrollPane scrollPane = new JScrollPane(placedDominoPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        scrollPane.setBounds(playerPanelWidth, 0, placedDominoPanel.getWidth(), placedDominoPanel.getHeight());
+        add(scrollPane);
 
     }
 

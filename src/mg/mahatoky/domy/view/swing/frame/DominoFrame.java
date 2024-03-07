@@ -40,7 +40,7 @@ public class DominoFrame extends JFrame {
 
     private void buildGame(String... playerNames) {
         game = new Game.GameBuilder()
-                .setMaxScore(30)
+                .setMaxScore(60)
                 .setPlayer1(new DefaultBot(playerNames[0]))
                 .setPlayer2(new MtkBot(playerNames[1]))
                 .setPlayer3(new DefaultBot(playerNames[2]))
