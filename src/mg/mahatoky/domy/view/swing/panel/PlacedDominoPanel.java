@@ -31,11 +31,13 @@ public class PlacedDominoPanel extends JPanel {
         if (domino == null)
             return;
         PlacedDominoPanelModel.DominoPosition position = placedDominoPanelModel.addDomino(domino, place);
-        DominoPanel dominoPanel = new DominoPanel(domino, position.isVertical() ? placedDominoPanelModel.getDominoShortSide() : placedDominoPanelModel.getDominoLongSide(), position.isVertical() ? placedDominoPanelModel.getDominoLongSide() : placedDominoPanelModel.getDominoShortSide());
-        dominoPanel.setBounds(position.getPoint().x, position.getPoint().y, dominoPanel.getWidth(), dominoPanel.getHeight());
-        add(dominoPanel);
-        revalidate();
-        repaint();
+        if(position != null) {
+            DominoPanel dominoPanel = new DominoPanel(domino, position.isVertical() ? placedDominoPanelModel.getDominoShortSide() : placedDominoPanelModel.getDominoLongSide(), position.isVertical() ? placedDominoPanelModel.getDominoLongSide() : placedDominoPanelModel.getDominoShortSide());
+            dominoPanel.setBounds(position.getPoint().x, position.getPoint().y, dominoPanel.getWidth(), dominoPanel.getHeight());
+            add(dominoPanel);
+            revalidate();
+            repaint();
+        }
     }
 
     public void clear() {

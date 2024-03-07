@@ -118,7 +118,7 @@ public class PlacedDominoPanelModel {
     }
 
     public DominoPosition addDomino(Domino domino, PlayerResponse.PLACE place) {
-        if (domino == null)
+        if (domino == null || dominoList.contains(domino))
             return null;
         DominoPosition dominoPosition = new DominoPosition();
         dominoList.add(domino);
