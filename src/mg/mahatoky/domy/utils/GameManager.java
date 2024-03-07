@@ -1,7 +1,6 @@
 package mg.mahatoky.domy.utils;
 
 import mg.mahatoky.domy.model.*;
-import mg.mahatoky.domy.view.console.ConsolePrinter;
 import mg.mahatoky.domy.view.swing.model.DominoFrameModel;
 
 import java.util.*;
@@ -36,6 +35,7 @@ public class GameManager {
         while (getWinner() == null) {
             distribute();
             currentPlayer = mainPlayer;
+            dominoFrameModel.setStepWinner(null);
             //TODO change to observer/observable
             notifyConsumer(displayableGameConsumer);
 
@@ -81,19 +81,12 @@ public class GameManager {
                         }
                     }
                 }
-
-
                 notifyConsumer(displayableGameConsumer);
                 //ConsolePrinter.display(placedDominoes); DISPLAY ON CONSOLE
                 currentPlayer = whoIsNextPlayer(currentPlayer);
                 Thread.sleep(game.getMilliSecondStepPause());
             }
-            Player stepWinner = calculateStepWinner();
-            if (stepWinner != null) {
-                System.out.println("-> STEP WINNER:" + stepWinner.getName() + ", " + playerDominoesMap.get(game.getPlayer1()).countEyes() + ", " + playerDominoesMap.get(game.getPlayer2()).countEyes() + ", " + playerDominoesMap.get(game.getPlayer3()).countEyes());
-            } else {
-                System.out.println("-> STEP NO WINNER" + playerDominoesMap.get(game.getPlayer1()).countEyes() + ", " + playerDominoesMap.get(game.getPlayer2()).countEyes() + ", " + playerDominoesMap.get(game.getPlayer3()).countEyes());
-            }
+            dominoFrameModel.setStepWinner(calculateStepScores());
             notifyConsumer(displayableGameConsumer);
             changeMainPlayer();
             step++;
@@ -116,7 +109,7 @@ public class GameManager {
         displayableGameConsumer.accept(dominoFrameModel);
     }
 
-    private Player calculateStepWinner() {
+    private Player calculateStepScores() {
         Player winner = null;
         Map<Player, Integer> stepDominoCount = new HashMap<>(3);
         int p1Count = playerDominoesMap.get(game.getPlayer1()).countEyes();

@@ -58,15 +58,17 @@ public class MainContentPanel extends JPanel {
     }
 
     public void refresh(DominoFrameModel dominoFrameModel) {
+        if(dominoFrameModel.getStepWinner() != null){
+            player1Panel.displayScore(dominoFrameModel.getScores()[0]);
+            player2Panel.displayScore(dominoFrameModel.getScores()[1]);
+            player3Panel.displayScore(dominoFrameModel.getScores()[2]);
+        }
         player1Panel.displayDominoes(dominoFrameModel.getPlayer1Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer3Name()) ? Color.lightGray : Color.WHITE);
         player2Panel.displayDominoes(dominoFrameModel.getPlayer2Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer1Name()) ? Color.lightGray : Color.WHITE);
         player3Panel.displayDominoes(dominoFrameModel.getPlayer3Dominoes(), dominoFrameModel.getMainPlayer().getName().equals(dominoFrameModel.getPlayer2Name()) ? Color.lightGray : Color.WHITE);
         if (dominoFrameModel.getPlacedDominoes().isEmpty()) {
             placedDominoPanel.clear();
         } else {
-            if (dominoFrameModel.getLastPlace().equals(PlayerResponse.PLACE.HEAD)) {
-                System.out.println("-------------------------------->" + dominoFrameModel.getLastDomino());
-            }
             placedDominoPanel.displayDominoes(dominoFrameModel.getLastDomino(), dominoFrameModel.getLastPlace());
         }
         this.revalidate();

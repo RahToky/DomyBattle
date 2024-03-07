@@ -20,6 +20,7 @@ public class DominoFrameModel {
 
     private Player mainPlayer;
     private Player winner;
+    private Player stepWinner;
 
     public Dominoes getPlayer1Dominoes() {
         return player1Dominoes;
@@ -103,6 +104,14 @@ public class DominoFrameModel {
 
     public PlayerResponse.PLACE getLastPlace() {
         return lastPlace;
+    }
+
+    public Player getStepWinner() {
+        return stepWinner;
+    }
+
+    public void setStepWinner(Player stepWinner) {
+        this.stepWinner = stepWinner;
     }
 
     public Player getWinner() {
